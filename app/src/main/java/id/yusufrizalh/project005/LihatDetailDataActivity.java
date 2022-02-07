@@ -9,13 +9,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class LihatDetailDataActivity extends AppCompatActivity {
+import java.util.HashMap;
+
+public class LihatDetailDataActivity extends AppCompatActivity implements View.OnClickListener {
     EditText edit_id, edit_nama, edit_jabatan, edit_gaji;
+    Button btn_update_pegawai, btn_delete_pegawai;
     String id;
 
     @Override
@@ -30,6 +36,8 @@ public class LihatDetailDataActivity extends AppCompatActivity {
         edit_nama = findViewById(R.id.edit_nama);
         edit_jabatan = findViewById(R.id.edit_jabatan);
         edit_gaji = findViewById(R.id.edit_gaji);
+        btn_update_pegawai = findViewById(R.id.btn_update_pegawai);
+        btn_delete_pegawai = findViewById(R.id.btn_delete_pegawai);
 
         // menerima intent dari class LihatDataActivity
         Intent receiveIntent = getIntent();
@@ -38,6 +46,9 @@ public class LihatDetailDataActivity extends AppCompatActivity {
 
         // mengambil data JSON
         getJSON();
+
+        btn_update_pegawai.setOnClickListener(this);
+        btn_delete_pegawai.setOnClickListener(this);
     }
 
     private void getJSON() {
@@ -93,5 +104,61 @@ public class LihatDetailDataActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onClick(View myButton) {
+        if (myButton == btn_update_pegawai) {
+            updateDataPegawai();
+        } else if (myButton == btn_delete_pegawai) {
+            confirmDeleteDataPegawai();
+        }
+    }
+
+    private void confirmDeleteDataPegawai() {
+
+    }
+
+    private void updateDataPegawai() {
+        // data apa saja yang akan diubah
+        final String nama = edit_nama.getText().toString().trim();
+        final String jabatan = edit_jabatan.getText().toString().trim();
+        final String gaji = edit_gaji.getText().toString().trim();
+
+        class UpdateDataPegawai extends AsyncTask<Void, Void, String> {
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(LihatDetailDataActivity.this,
+                        "Mengubah Data", "Harap tunggu...",
+                        false, false);
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String, String> params = new HashMap<>();
+                params.put(Konfigurasi.KEY_PGW_ID, id);
+                params.put(Konfigurasi.KEY_PGW_NAMA, nama);
+                params.put(Konfigurasi.KEY_PGW_JABATAN, jabatan);
+                params.put(Konfigurasi.KEY_PGW_GAJI, gaji);
+                HttpHandler handler = new HttpHandler();
+                String result = handler.sendPostRequest(Konfigurasi.URL_UPDATE, params);
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String message) {
+                super.onPostExecute(message);
+                loading.dismiss();
+                Toast.makeText(LihatDetailDataActivity.this,
+                        "pesan: " + message, Toast.LENGTH_SHORT).show();
+                // redirect ke LihatDataActivity
+                startActivity(new Intent(LihatDetailDataActivity.this, LihatDataActivity.class));
+            }
+        }
+        UpdateDataPegawai updateDataPegawai = new UpdateDataPegawai();
+        updateDataPegawai.execute();
     }
 }

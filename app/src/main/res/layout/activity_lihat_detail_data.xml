@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:editable="false"
         android:ems="10"
         android:textColor="#420707"
         android:textSize="24sp"
@@ -47,4 +48,28 @@
         android:textColor="#420707"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <Button
+            android:id="@+id/btn_update_pegawai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:text="Update Pegawai" />
+
+        <Button
+            android:id="@+id/btn_delete_pegawai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:text="Delete Pegawai" />
+    </LinearLayout>
 </LinearLayout>
