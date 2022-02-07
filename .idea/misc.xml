@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/android-maybank/Project005/app/src/main/res/layout/activity_lihat_data.xml" value="0.5" />
+        <entry key="..\:/android-maybank/Project005/app/src/main/res/layout/activity_lihat_detail_data.xml" value="0.33" />
         <entry key="..\:/android-maybank/Project005/app/src/main/res/layout/activity_list_item.xml" value="0.5" />
         <entry key="..\:/android-maybank/Project005/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/android-maybank/Project005/app/src/main/res/layout/activity_tambah_data.xml" value="0.25" />
       </map>
     </option>
   </component>

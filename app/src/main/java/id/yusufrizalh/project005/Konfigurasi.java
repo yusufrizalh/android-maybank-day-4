@@ -3,7 +3,7 @@ package id.yusufrizalh.project005;
 public class Konfigurasi {
     // url dimana web API berada
     public static final String URL_GET_ALL = "http://192.168.10.96/pegawai/tampilSemuaPgw.php";
-    public static final String URL_GET_DETAIL = "http://192.168.10.96/pegawai/tampilPgw.php";
+    public static final String URL_GET_DETAIL = "http://192.168.10.96/pegawai/tampilPgw.php?id=";
     public static final String URL_ADD = "http://192.168.10.96/pegawai/tambahPgw.php";
     public static final String URL_UPDATE = "http://192.168.10.96/pegawai/updatePgw.php";
     public static final String URL_DELETE = "http://192.168.10.96/pegawai/hapusPgw.php";

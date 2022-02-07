@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -114,7 +115,14 @@ public class LihatDataActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        // ketika salah satu list dipilih
+        // detail: ID, Name, Desg, Salary
+        Intent myIntent = new Intent(LihatDataActivity.this,
+                LihatDetailDataActivity.class);
+        HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
+        String pgwId = map.get(Konfigurasi.TAG_JSON_ID).toString();
+        myIntent.putExtra(Konfigurasi.PGW_ID, pgwId);
+        startActivity(myIntent);
     }
 
     // agar back button bisa bekeja
